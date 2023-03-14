@@ -16,14 +16,14 @@ const Calculator = () => {
     let Y = 0;
     if (transportType === "railway") {
       // расчет для ж/д
-      const M = 65000;
+      const M = 65;
       const A = 1000;
       const Spos = 57.6;
       const TS = 5000;
       const N = 1.2;
-      S = (weight / M * A * Spos * distance + TS) * N;
+      S = (Math.ceil(weight / M) * A + Spos * distance + TS) * N;
       K = S * 3;
-	Y = K / weight;
+	Y = K / weight / 1000;
     } else if (transportType === "auto") {
       // расчет для авто
       const Spos = 45 * 0.28;
@@ -33,7 +33,7 @@ const Calculator = () => {
       const N = 1.2;
       S = ((Spos + Pr) * distance + TS + ZP) * N;
       K = S * 3;
-	Y = K / weight;
+	Y = K / weight / 1000;
     } else if (transportType === "aviation") {
       // расчет для авиации
     }
@@ -58,7 +58,7 @@ const Calculator = () => {
         <input type="number" value={distance} onChange={(e) => setDistance(e.target.value)} />
       </label>
       <label>
-        Вес груза (в кг):
+        Вес груза (в т):
         <input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} />
       </label>
       <button onClick={calculateCost}>Рассчитать</button>
